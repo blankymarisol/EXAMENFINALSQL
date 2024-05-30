@@ -160,7 +160,7 @@
             // 
             this.textBoxemail.Location = new System.Drawing.Point(117, 636);
             this.textBoxemail.Name = "textBoxemail";
-            this.textBoxemail.Size = new System.Drawing.Size(124, 22);
+            this.textBoxemail.Size = new System.Drawing.Size(345, 22);
             this.textBoxemail.TabIndex = 11;
             // 
             // textBoxusername
@@ -216,6 +216,7 @@
             this.buttoneliminar.TabIndex = 17;
             this.buttoneliminar.Text = "ELIMINAR REGISTRO";
             this.buttoneliminar.UseVisualStyleBackColor = true;
+            this.buttoneliminar.Click += new System.EventHandler(this.buttoneliminar_Click);
             // 
             // buttoncrear
             // 
@@ -235,6 +236,7 @@
             this.button1.TabIndex = 19;
             this.button1.Text = "LIMPIAR";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label8
             // 
@@ -271,6 +273,7 @@
             this.buttonsalir.TabIndex = 23;
             this.buttonsalir.Text = "SALIR";
             this.buttonsalir.UseVisualStyleBackColor = true;
+            this.buttonsalir.Click += new System.EventHandler(this.buttonsalir_Click);
             // 
             // label9
             // 

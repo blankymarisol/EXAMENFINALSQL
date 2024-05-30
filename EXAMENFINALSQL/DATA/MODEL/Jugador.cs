@@ -9,7 +9,7 @@ namespace EXAMENFINALSQL.DATA.MODEL
 {
     internal class Jugador
     {
-        public int No_Partida { get; set; }
+        public int Numero_Partida { get; set; }
         public string Nombre { get; set; }
         public string Alias { get; set; }
         public string Estado_Partida { get; set; }
@@ -18,9 +18,9 @@ namespace EXAMENFINALSQL.DATA.MODEL
         public string Email { get; set; }
 
         public Jugador() { }
-        public Jugador(int no_Partida, string nombre, string alias, string estado_Partida, string duracion_Partida, string username, string email) 
+        public Jugador(int numero_Partida, string nombre, string alias, string estado_Partida, string duracion_Partida, string username, string email) 
         {
-            No_Partida = no_Partida;
+            Numero_Partida = numero_Partida;
             Nombre = nombre;
             Alias = alias;
             Estado_Partida = estado_Partida;
@@ -31,7 +31,7 @@ namespace EXAMENFINALSQL.DATA.MODEL
 
         public override string ToString()
         {
-            return $"No_Partida: {No_Partida}, Nombre: {Nombre}, Alias: {Alias}, Estado_Partida: {Estado_Partida}, Username: {Username}, Email: {Email}";
+            return $"No_Partida: {Numero_Partida}, Nombre: {Nombre}, Alias: {Alias}, Estado_Partida: {Estado_Partida}, Username: {Username}, Email: {Email}";
         }
     }
 }

@@ -24,7 +24,7 @@ namespace EXAMENFINALSQL.DATA.DataAccess
                 try
                 {
                     connection.Open();
-                    return true; 
+                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -53,74 +53,132 @@ namespace EXAMENFINALSQL.DATA.DataAccess
             return juego;
         }
         //Actualizar datos 
-        public void Actualizar(int no_Partida, string nombre, string alias, string estado_Partida, string duracion_Partida, string username, string email)
+        public int Actualizar(Jugador jdg)
         {
+            int rowsAffected = 0;
             try
             {
-                string query = "UPDATE alejogame SET Nombre = @Nombre, Alias = @Alias, Estado_Partida = @Estado_Partida, Duracion_Partida = @Duracion_Partida, Username = @Username, Email = @Email";
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("No_Partida", no_Partida);
-                cmd.Parameters.AddWithValue("@Nombre", nombre);
-                cmd.Parameters.AddWithValue("@Alias", alias);
-                cmd.Parameters.AddWithValue("@Estado_Partida", estado_Partida);
-                cmd.Parameters.AddWithValue("@Duracion_Partida", duracion_Partida);
-                cmd.Parameters.AddWithValue("@Username", username);
-                cmd.Parameters.AddWithValue("@Email", email);
-                connection.Open();
-                cmd.ExecuteNonQuery();
+                DialogResult result = MessageBox.Show("Deseas actualizar los datos?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    using (MySqlConnection connection = new MySqlConnection(connectionString))
+                    {
+                        string query = "UPDATE alejogame SET Nombre = @Nombre, Alias = @Alias, Estado_Partida = @Estado_Partida, Duracion_Partida = @Duracion_Partida, Username = @Username, Email = @Email WHERE Numero_Partida = @Numero_Partida";
+                        using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                        {
+                            cmd.Parameters.AddWithValue("@Numero_Partida", jdg.Numero_Partida);
+                            cmd.Parameters.AddWithValue("@Nombre", jdg.Nombre);
+                            cmd.Parameters.AddWithValue("@Alias", jdg.Alias);
+                            cmd.Parameters.AddWithValue("@Estado_Partida", jdg.Estado_Partida);
+                            cmd.Parameters.AddWithValue("@Duracion_Partida", jdg.Duracion_Partida);
+                            cmd.Parameters.AddWithValue("@Username", jdg.Username);
+                            cmd.Parameters.AddWithValue("@Email", jdg.Email);
+
+                            connection.Open();
+                            rowsAffected = cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Datos actualizados correctamente");
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontró el registro para actualizar");
+                    }
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al actualizar el registro: " + ex.Message);
+                MessageBox.Show("Error al actualizar los datos: " + ex.Message);
             }
-            finally
-            {
-                connection.Close();
-            }
+
+            return rowsAffected;
         }
-        
+
+
         //Buscar por medio del numero de partida
-        public DataRow BuscarPorNumeroPartida(int no_Partida)
+        public DataTable BuscarporNumeroPartida(int numero_Partida)
         {
-            DataTable dt = new DataTable();
-            try
+            DataTable juego = new DataTable();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string query = "SELECT * FROM alejogame WHERE No_Partida = @No_Partida";
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@No_Partida", no_Partida);
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
                 connection.Open();
-                adapter.Fill(dt);
+
+                string sql = "SELECT * FROM alejogame WHERE Numero_Partida = @numero_Partida";
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@numero_Partida", numero_Partida);
+
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                    {
+                        adapter.Fill(juego);
+                    }
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("El numero de partida es erroneo");
-            }
-            finally
-            {
-                connection.Close();
-            }
-            return dt.Rows[0];
+            return juego;
+
         }
-        //Insertar la clase usuario
+        //Insertar con la clase Jugador
         public void Insertar(Jugador jdg)
         {
             try
             {
-                string query = "INSERT INTO alejogame (Nombre, Alias, Estado_Partida, Duracion_Partida, Username, Email) VALUES (@Nombre, @Alias, @Estado_Partida, @Duracion_Partida, @Username, @Email)";
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@Nombre", jdg.Nombre);
-                cmd.Parameters.AddWithValue("@Alias", jdg.Alias);
-                cmd.Parameters.AddWithValue("@Estado_Partida", jdg.Estado_Partida);
-                cmd.Parameters.AddWithValue("@Duracion_Partida", jdg.Duracion_Partida);
-                cmd.Parameters.AddWithValue("@Username", jdg.Username);
-                cmd.Parameters.AddWithValue("@Email", jdg.Email);
-                connection.Open();
-                cmd.ExecuteNonQuery();
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string query = "INSERT INTO alejogame (Nombre, Alias, Estado_Partida, Duracion_Partida, Username, Email) VALUES (@Nombre, @Alias, @Estado_Partida, @Duracion_Partida, @Username, @Email)";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@Nombre", jdg.Nombre);
+                    cmd.Parameters.AddWithValue("@Alias", jdg.Alias);
+                    cmd.Parameters.AddWithValue("@Estado_Partida", jdg.Estado_Partida);
+                    cmd.Parameters.AddWithValue("@Duracion_Partida", jdg.Duracion_Partida);
+                    cmd.Parameters.AddWithValue("@Username", jdg.Username);
+                    cmd.Parameters.AddWithValue("@Email", jdg.Email);
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al agregar el registro: " + ex.Message);
+                MessageBox.Show("Error al agregar el registro");
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+        //Eliminar un registro
+        public void Eliminar(int numero_Partida)
+        {
+            try
+            {
+                DialogResult resultE = MessageBox.Show("Esta seguro que desea eliminar este registro?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (resultE == DialogResult.Yes)
+                {
+                    using (MySqlConnection connection = new MySqlConnection(connectionString))
+                    {
+                        connection.Open();
+                        string sql = "DELETE FROM alejogame WHERE numero_Partida = @numero_Partida";
+                        using (MySqlCommand cmd = new MySqlCommand(sql, connection))
+                        {
+                            cmd.Parameters.AddWithValue("@numero_Partida", numero_Partida);
+                            int mensaje = cmd.ExecuteNonQuery();
+                            if (mensaje == 0)
+                            {
+                                MessageBox.Show("El registro solicitado no existe");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Se ha eliminado el registro correctamente");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al eliminar el registro");
             }
         }
     }
