@@ -49,7 +49,7 @@
             this.buttoncrear = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxnumero = new System.Windows.Forms.TextBox();
             this.buttonbuscar = new System.Windows.Forms.Button();
             this.buttonsalir = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
@@ -186,6 +186,7 @@
             this.buttonprobar.TabIndex = 14;
             this.buttonprobar.Text = "PROBAR CONEXION";
             this.buttonprobar.UseVisualStyleBackColor = false;
+            this.buttonprobar.Click += new System.EventHandler(this.buttonprobar_Click);
             // 
             // buttonver
             // 
@@ -195,6 +196,7 @@
             this.buttonver.TabIndex = 15;
             this.buttonver.Text = "VER DATOS";
             this.buttonver.UseVisualStyleBackColor = true;
+            this.buttonver.Click += new System.EventHandler(this.buttonver_Click);
             // 
             // buttonactualizar
             // 
@@ -204,6 +206,7 @@
             this.buttonactualizar.TabIndex = 16;
             this.buttonactualizar.Text = "ACTUALIZAR";
             this.buttonactualizar.UseVisualStyleBackColor = true;
+            this.buttonactualizar.Click += new System.EventHandler(this.buttonactualizar_Click);
             // 
             // buttoneliminar
             // 
@@ -222,6 +225,7 @@
             this.buttoncrear.TabIndex = 18;
             this.buttoncrear.Text = "CREAR NUEVO REGISTRO";
             this.buttoncrear.UseVisualStyleBackColor = true;
+            this.buttoncrear.Click += new System.EventHandler(this.buttoncrear_Click);
             // 
             // button1
             // 
@@ -242,12 +246,12 @@
             this.label8.TabIndex = 20;
             this.label8.Text = "No. Partida";
             // 
-            // textBox1
+            // textBoxnumero
             // 
-            this.textBox1.Location = new System.Drawing.Point(387, 366);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(75, 22);
-            this.textBox1.TabIndex = 21;
+            this.textBoxnumero.Location = new System.Drawing.Point(387, 366);
+            this.textBoxnumero.Name = "textBoxnumero";
+            this.textBoxnumero.Size = new System.Drawing.Size(75, 22);
+            this.textBoxnumero.TabIndex = 21;
             // 
             // buttonbuscar
             // 
@@ -257,10 +261,11 @@
             this.buttonbuscar.TabIndex = 22;
             this.buttonbuscar.Text = "BUSCAR POR No. PARTIDA";
             this.buttonbuscar.UseVisualStyleBackColor = true;
+            this.buttonbuscar.Click += new System.EventHandler(this.buttonbuscar_Click);
             // 
             // buttonsalir
             // 
-            this.buttonsalir.Location = new System.Drawing.Point(637, 694);
+            this.buttonsalir.Location = new System.Drawing.Point(685, 694);
             this.buttonsalir.Name = "buttonsalir";
             this.buttonsalir.Size = new System.Drawing.Size(73, 31);
             this.buttonsalir.TabIndex = 23;
@@ -282,11 +287,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.ClientSize = new System.Drawing.Size(722, 737);
+            this.ClientSize = new System.Drawing.Size(789, 737);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.buttonsalir);
             this.Controls.Add(this.buttonbuscar);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxnumero);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.buttoncrear);
@@ -339,7 +344,7 @@
         private System.Windows.Forms.Button buttoncrear;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxnumero;
         private System.Windows.Forms.Button buttonbuscar;
         private System.Windows.Forms.Button buttonsalir;
         private System.Windows.Forms.Label label9;
